@@ -1,0 +1,32 @@
+version: '3.8'
+networks:
+  linqpalnet:
+
+services:
+
+  be:
+    image: linqpal/be
+    build: './backend'
+    ports:
+      - 8080:8080
+    networks:
+      linqpalnet:
+
+  fe:
+    image: linqpal/fe
+    build: './frontend'
+    ports:
+      - 80:80
+    networks:
+      linqpalnet:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      linqpalnet:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "linqpal"
+      MONGO_INITDB_ROOT_PASSWORD: "linqpal"
